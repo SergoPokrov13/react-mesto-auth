@@ -1,10 +1,10 @@
-import { Route, Switch, Redirect } from "react-router-dom";
+import { Route, Switch } from "react-router-dom";
 import Header from "../Header/Header";
 import Logged from "../Logged/Logged";
 import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
 import Login from "../Login/Login";
 import Register from "../Register/Register";
-import { useEffect, useState, useContext } from "react";
+import { useEffect, useState } from "react";
 import apiAuth from "../../utils/ApiAuth";
 import { useHistory } from "react-router-dom";
 import { NameContext } from "../../contexts/CurrentUserContext";
@@ -30,6 +30,7 @@ function App() {
   function tokenCheck() {
     if (localStorage.getItem("token")) {
       const jwt = JSON.parse(localStorage.getItem("token"));
+      console.log(jwt)
       if (jwt.token) {
         apiAuth.getUser(jwt.token).then((data) => {
           if (data) {
@@ -46,7 +47,7 @@ function App() {
     <div className="App">
       <div className="root">
         <NameContext.Provider value={loginUser}>
-          <Header logOut={handleExit} />
+          <Header loggedIn={loggedIn} logOut={handleExit} />
         </NameContext.Provider>
         <Switch>
           <ProtectedRoute

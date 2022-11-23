@@ -4,7 +4,7 @@ import { Route } from "react-router-dom";
 import { useContext } from "react";
 import { NameContext } from "../../contexts/CurrentUserContext";
 
-function Header({ logOut }) {
+function Header({ logOut, loggedIn }) {
   const loginUser = useContext(NameContext);
   return (
     <header className="header">
@@ -23,7 +23,7 @@ function Header({ logOut }) {
 
       <Route exact path="/">
         <div className="header__block">
-          <p className="header__subtitle">{loginUser.data.email}</p>
+          <p className="header__subtitle">{loggedIn ?  loginUser.data.email : ''}</p>
           <Link
             to="/sign-in"
             onClick={logOut}
