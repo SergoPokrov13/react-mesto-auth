@@ -17,26 +17,32 @@ function Logged() {
   const [selectedCard, setCardClick] = useState({});
 
   const handleCurrentUser = () => {
-    api.getUserInfo().then((data) => {
-      setCurrentUser(data);
-    })
-    .catch(err => console.log(err));
+    api
+      .getUserInfo()
+      .then((data) => {
+        setCurrentUser(data);
+      })
+      .catch((err) => console.log(err));
   };
 
   const onUpdateUser = (name, description) => {
-    api.setUserInfo(name, description).then((data) => {
-      setCurrentUser(data);
-      handleClose();
-    })
-    .catch(err => console.log(err));
+    api
+      .setUserInfo(name, description)
+      .then((data) => {
+        setCurrentUser(data);
+        handleClose();
+      })
+      .catch((err) => console.log(err));
   };
 
   const onUpdateAvatar = (link) => {
-    api.setUserAvatar(link).then((data) => {
-      setCurrentUser(data);
-      handleClose();
-    })
-    .catch(err => console.log(err));
+    api
+      .setUserAvatar(link)
+      .then((data) => {
+        setCurrentUser(data);
+        handleClose();
+      })
+      .catch((err) => console.log(err));
   };
 
   useEffect(() => {
@@ -71,19 +77,26 @@ function Logged() {
   function handleCardLike(card) {
     const isLiked = card.likes.some((i) => i._id === currentUser._id);
 
-    api.likeCard(!isLiked, card._id).then((newCard) => {
-      setCards((state) => state.map((i) => (i._id === card._id ? newCard : i)));
-    }).catch(err => console.log(err));
+    api
+      .likeCard(!isLiked, card._id)
+      .then((newCard) => {
+        setCards((state) =>
+          state.map((i) => (i._id === card._id ? newCard : i))
+        );
+      })
+      .catch((err) => console.log(err));
   }
 
   function handleCardDelete(card) {
     const isOwn = card.owner._id === currentUser._id;
 
     if (isOwn) {
-      api.removeCard(card._id).then((data) => {
-        setCards(cards.filter((item) => item._id !== card._id));
-      })
-      .catch(err => console.log(err));
+      api
+        .removeCard(card._id)
+        .then((data) => {
+          setCards(cards.filter((item) => item._id !== card._id));
+        })
+        .catch((err) => console.log(err));
     }
   }
 
@@ -97,11 +110,13 @@ function Logged() {
   }, []);
 
   function handleAddPlaceSubmit(card) {
-    api.createCard(card).then((data) => {
-      setCards([data, ...cards]);
-      handleClose();
-    })
-    .catch(err => console.log(err));
+    api
+      .createCard(card)
+      .then((data) => {
+        setCards([data, ...cards]);
+        handleClose();
+      })
+      .catch((err) => console.log(err));
   }
   return (
     <div className="App">
