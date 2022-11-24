@@ -9,20 +9,23 @@ import EditProfilePopup from "../EditProfilePopup/EditProfilePopup";
 import EditAvatarPopup from "../EditAvatarPopup/EditAvatarPopup";
 import AddPlacePopup from "../AddPlacePopup/AddPlacePopup";
 
-function Logged() {
+function Logged(loggedIn) {
   const [currentUser, setCurrentUser] = useState({});
   const [isEditProfilePopupOpen, setEditProfileOpen] = useState(false);
   const [isAddPlacePopupOpen, setAddPlacePopupOpen] = useState(false);
   const [isEditAvatarPopupOpen, setEditAvatarPopupOpen] = useState(false);
   const [selectedCard, setCardClick] = useState({});
+  const [cards, setCards] = useState([]);
 
   const handleCurrentUser = () => {
-    api
+    if(loggedIn){
+      api
       .getUserInfo()
       .then((data) => {
         setCurrentUser(data);
       })
       .catch((err) => console.log(err));
+    }
   };
 
   const onUpdateUser = (name, description) => {
@@ -72,8 +75,6 @@ function Logged() {
     setCardClick({});
   };
 
-  const [cards, setCards] = useState([]);
-
   function handleCardLike(card) {
     const isLiked = card.likes.some((i) => i._id === currentUser._id);
 
@@ -101,12 +102,14 @@ function Logged() {
   }
 
   useEffect(() => {
-    api
+    if(loggedIn){
+      api
       .getCards()
       .then((data) => {
         setCards(data);
       })
       .catch((err) => console.log(err));
+    }
   }, []);
 
   function handleAddPlaceSubmit(card) {

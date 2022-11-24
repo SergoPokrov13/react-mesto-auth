@@ -1,14 +1,15 @@
 import { Link } from "react-router-dom";
 import logo from "../../images/Logo.svg";
-import { Route } from "react-router-dom";
 import { useContext } from "react";
 import { NameContext } from "../../contexts/CurrentUserContext";
+import { Route, Switch } from "react-router-dom";
 
 function Header({ logOut, loggedIn }) {
   const loginUser = useContext(NameContext);
   return (
     <header className="header">
       <img className="header__logo" src={logo} alt="Логотип" />
+      <Switch>
       <Route path="/sign-in">
         <Link to="/sign-up" className="header__subtitle">
           Регистрация
@@ -33,6 +34,7 @@ function Header({ logOut, loggedIn }) {
           </Link>
         </div>
       </Route>
+      </Switch>
     </header>
   );
 }

@@ -1,15 +1,12 @@
 import InfoTooltip from "../InfoTooltip/InfoTooltip";
-import InfoTooltipTrue from "../../images/InfoTooltipTrue.svg";
-import InfoTooltipFalse from "../../images/InfoTooltipFalse.svg";
 import { useState, useEffect } from "react";
 import apiAuth from "../../utils/ApiAuth";
-import { Route, Redirect } from "react-router-dom";
 import { Link, withRouter } from "react-router-dom";
 import { useHistory } from "react-router-dom";
 
 function Register() {
   const [isRegister, setIsRegister] = useState(false);
-  const [isError, setIsError] = useState(false);
+  const [successCheck, setSuccessCheck] = useState(false)
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -30,17 +27,17 @@ function Register() {
       .signup({ email, password })
       .then((data) => {
         setIsRegister(true);
+        setSuccessCheck(true)
       })
-      .catch((err) => setIsError(true));
+      .catch((err) => {
+        setIsRegister(true)
+        setSuccessCheck(false)
+      });
   };
 
   const handleClose = () => {
     setIsRegister(false);
     history.push("/sign-in");
-  };
-
-  const handleCloseError = () => {
-    setIsError(false);
   };
 
   return (
@@ -68,16 +65,9 @@ function Register() {
         </Link>
       </div>
       <InfoTooltip
-        onClose={handleCloseError}
-        isOpen={isError}
-        link={InfoTooltipFalse}
-        name="Что-то пошло не так! Попробуйте ещё раз."
-      />
-      <InfoTooltip
         onClose={handleClose}
         isOpen={isRegister}
-        link={InfoTooltipTrue}
-        name="Вы успешно зарегистрировались!"
+        check={successCheck}
       />
     </div>
   );

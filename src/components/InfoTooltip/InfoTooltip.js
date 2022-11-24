@@ -1,4 +1,7 @@
-function InfoTooltip({ link, name, isOpen, onClose }) {
+import InfoTooltipTrue from "../../images/InfoTooltipTrue.svg";
+import InfoTooltipFalse from "../../images/InfoTooltipFalse.svg";
+
+function InfoTooltip({ check, isOpen, onClose }) {
   return (
     <div className={`popup ${isOpen ? "popup_opened" : ""}`}>
       <div className="popup__content">
@@ -8,8 +11,8 @@ function InfoTooltip({ link, name, isOpen, onClose }) {
             className="popup__close popup__close"
             onClick={onClose}
           ></button>
-          <img className="popup__image" src={link} alt="" />
-          <h2 className="popup__name">{name}</h2>
+          <img className="popup__image" src={check ? InfoTooltipTrue : InfoTooltipFalse} alt="" />
+          <h2 className="popup__name">{check ? 'Вы успешно зарегистрировались!' : 'Что-то пошло не так! Попробуйте ещё раз.'}</h2>
         </div>
       </div>
     </div>

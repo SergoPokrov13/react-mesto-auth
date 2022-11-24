@@ -1,5 +1,4 @@
 import InfoTooltip from "../InfoTooltip/InfoTooltip";
-import InfoTooltipFalse from "../../images/InfoTooltipFalse.svg";
 import { useState } from "react";
 import apiAuth from "../../utils/ApiAuth";
 
@@ -53,8 +52,7 @@ function Login({ tokenCheck }) {
       <InfoTooltip
         onClose={handleClose}
         isOpen={isError}
-        link={InfoTooltipFalse}
-        name="Что-то пошло не так! Попробуйте ещё раз."
+        check={false}
       />
     </div>
   );
