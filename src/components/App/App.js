@@ -30,7 +30,6 @@ function App() {
   function tokenCheck() {
     if (localStorage.getItem("token")) {
       const jwt = JSON.parse(localStorage.getItem("token"));
-      if (jwt.token) {
         apiAuth.getUser(jwt.token).then((data) => {
           if (data) {
             setLoginUser(data);
@@ -39,7 +38,6 @@ function App() {
           }
         })
         .catch((err) => console.log(err));
-      }
     }
   }
 

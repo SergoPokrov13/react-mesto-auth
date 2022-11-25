@@ -6,7 +6,7 @@ import { useHistory } from "react-router-dom";
 
 function Register() {
   const [isRegister, setIsRegister] = useState(false);
-  const [successCheck, setSuccessCheck] = useState(false)
+  const [successCheck, setSuccessCheck] = useState(false);
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -30,14 +30,16 @@ function Register() {
         setSuccessCheck(true)
       })
       .catch((err) => {
-        setIsRegister(true)
+        setIsRegister(true);
         setSuccessCheck(false)
       });
   };
 
   const handleClose = () => {
     setIsRegister(false);
-    history.push("/sign-in");
+    if(successCheck){
+      history.push("/sign-in");
+    };
   };
 
   return (
