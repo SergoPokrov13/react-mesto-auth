@@ -28,9 +28,9 @@ function App() {
   }
 
   function tokenCheck() {
-    if (localStorage.getItem("token")) {
-      const jwt = JSON.parse(localStorage.getItem("token"));
-        apiAuth.getUser(jwt.token).then((data) => {
+    const jwt = localStorage.getItem("token");
+      if (jwt) {
+        apiAuth.getUser(jwt).then((data) => {
           if (data) {
             setLoginUser(data);
             handleLogin();

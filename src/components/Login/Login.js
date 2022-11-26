@@ -20,8 +20,7 @@ function Login({ tokenCheck }) {
     apiAuth
       .signin({ email, password })
       .then((data) => {
-        localStorage.setItem("token", JSON.stringify(data));
-        JSON.parse(localStorage.getItem("token"));
+        localStorage.setItem("token", data.token);
         tokenCheck();
       })
       .catch((err) => setIsError(true));
